@@ -36,6 +36,7 @@ function App() {
         const giftData = await getGiftingInterfaces();
         setGifts(giftData);
       } finally {
+        window.playhtml.setupPlayElements("can-move");
         setIsLoading(false);
       }
     }

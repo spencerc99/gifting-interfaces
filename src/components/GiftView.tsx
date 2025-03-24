@@ -40,10 +40,10 @@ export function GiftView({ gift, isActive, onClick, onClose }: GiftViewProps) {
   return (
     <>
       <div
+        can-move=""
         className={`absolute cursor-pointer transition-transform hover:scale-105`}
         onClick={onClick}
         style={{
-          transform: isActive ? "scale(1.05)" : undefined,
           zIndex: isActive ? 100 : 0,
           overflow: "visible",
           left: `${position.x}px`,

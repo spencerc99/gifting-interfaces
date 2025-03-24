@@ -53,6 +53,7 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
       className={`${styles.giftDetailView} ${styles[theme]}`}
       onClick={(e) => {
         e.stopPropagation();
+        e.preventDefault();
       }}
     >
       <button
