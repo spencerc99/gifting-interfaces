@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import "./styles/base.scss";
-import { getGiftingInterfaces, Gift, APIGift, CustomGift } from "./utils/api";
+import { getGiftingInterfaces, Gift, CustomGift } from "./utils/api";
 import { GiftView } from "./components/GiftView";
 import { LoadingScreen } from "./components/LoadingSpinner";
 import { ThankYous } from "./components/ThankYous";
 import { About } from "./components/About";
 import { motion, AnimatePresence } from "framer-motion";
+import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from "./utils";
 
 const CustomGifts: CustomGift[] = [
   {
@@ -60,7 +61,9 @@ function App() {
         >
           <h1 className="text-8xl font-bold">Gift Interfaces</h1>
           <p className="text-xl opacity-50">SFPC Winter 2025</p>
-          <div className="relative w-[1500px] h-[1500px] overflow-auto">
+          <div
+            className={`relative min-w-[${VIEWPORT_WIDTH}px] min-h-[${VIEWPORT_HEIGHT}px] overflow-auto`}
+          >
             {giftsToRender.map((gift, index) => (
               <GiftView
                 key={gift.id}

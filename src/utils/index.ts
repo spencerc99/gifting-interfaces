@@ -1,5 +1,8 @@
 import { Gift } from "./api";
 
+export const VIEWPORT_WIDTH = 2000;
+export const VIEWPORT_HEIGHT = 1500;
+
 /**
  * Generates a deterministic hash value from a string.
  * @param str The string to hash
@@ -26,8 +29,8 @@ export function getGiftPosition(gift: Gift): { x: number; y: number } {
   // Leave some padding from edges for gift size
   // TODO: keep in sync with the actual size of viewport
   const padding = 100;
-  const x = Math.abs(hash % (1500 - padding * 2)) + padding;
-  const y = Math.abs((hash >> 16) % (1500 - padding * 2)) + padding;
+  const x = Math.abs(hash % (VIEWPORT_WIDTH - padding * 2)) + padding;
+  const y = Math.abs((hash >> 16) % (VIEWPORT_HEIGHT - padding * 2)) + padding;
 
   return { x, y };
 }
