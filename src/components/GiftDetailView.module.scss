@@ -1,6 +1,4 @@
 @import "../styles/variables";
-.giftDetailView {
-}
 
 .giftDetailView {
   background-image: url("xv.png");
@@ -14,10 +12,10 @@
   top: 100px;
   left: 100px;
   width: 50vw;
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
   border-radius: 12px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 25px 50px 12px rgba(0, 0, 0, 0.25);
   padding-top: 4rem;
 
   .content {
@@ -44,7 +42,7 @@
     overflow-y: auto;
 
     h2 {
-      font-family: monospace;
+      font-family: $background-green monospace;
       margin-bottom: 1.5rem;
       font-size: 2rem;
     }
@@ -56,4 +54,16 @@
       opacity: 0.9;
     }
   }
+}
+
+.default {
+  background-color: $background-green;
+}
+
+.blue {
+  background-color: $background-blue;
+}
+
+.brown {
+  background-color: $background-brown;
 }
