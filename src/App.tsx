@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./styles/base.scss";
 import { getGiftingInterfaces, Gift } from "./utils/api";
+import { GiftView } from "./components/GiftView";
 
 function App() {
   const [gifts, setGifts] = useState<Gift[]>([]);
+  const [activeGift, setActiveGift] = useState<Gift | null>(null);
 
   useEffect(() => {
     async function fetchGifts() {
@@ -14,25 +16,21 @@ function App() {
   }, []);
 
   return (
-    <div className="p-8">
+    <div className="min-h-screen p-8">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {gifts.map((gift, index) => (
-          <div key={index} className="relative">
-            {/* Gift wrapping image */}
-            <img
-              src={gift.wrappingImg}
-              alt={gift.title}
-              className="w-full h-48 object-contain"
-            />
-
-            {/* From/To label */}
-            <div className="absolute bottom-0 right-0 bg-blue-200 p-2 rounded shadow-md text-sm">
-              {gift.title && <div>{gift.title}</div>}
-              <div>from: {gift.from}</div>
-              <div>to: {gift.to}</div>
-            </div>
-          </div>
+          <GiftView
+            key={index}
+            gift={gift}
+            isActive={activeGift === gift}
+            onClick={() => setActiveGift(gift)}
+            onClose={() => setActiveGift(null)}
+          />
         ))}
+        {/* TODO: add about button (gift) */}
+        {/* TODO: add thank you notes (gift) */}
+        {/* TODO: add ability to open each gift and have way to populate the modal (gift) */}
+        {/* TODO: add gift for each  */}
       </div>
     </div>
   );
