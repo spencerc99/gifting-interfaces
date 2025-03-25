@@ -1,5 +1,6 @@
 import { Gift, APIGift, CustomGift } from "../utils/api";
 import styles from "./GiftDetailView.module.scss";
+import { ImageOrVideo } from "./ImageOrVideo";
 
 interface GiftDetailViewProps {
   gift: Gift;
@@ -11,14 +12,22 @@ function isAPIGift(gift: Gift): gift is APIGift {
 }
 
 function APIGiftContent({ gift }: { gift: APIGift }) {
+  const transformedImageUrls = gift.imageUrls.map(
+    (url) => url.replace("https://codahosted.io", "https://codaio.imgix.net"),
+    {
+      auto: "format,compress",
+      fit: "max",
+      w: "450",
+    }
+  );
   return (
     <>
       <h2 className="text-2xl">{gift.title || "Untitled Gift"}</h2>
       <p>{gift.description}</p>
 
       <div className="mt-8 space-y-4">
-        {gift.imageUrls.map((url, index) => (
-          <img
+        {transformedImageUrls.map((url, index) => (
+          <ImageOrVideo
             key={index}
             src={url}
             alt={gift.imageAltText?.[index] || ""}
@@ -27,21 +36,28 @@ function APIGiftContent({ gift }: { gift: APIGift }) {
         ))}
       </div>
 
-      {gift.link && (
-        <a
-          href={gift.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block mt-6 text-blue-300 hover:text-blue-400"
-        >
-          View More →
-        </a>
-      )}
-      {gift.websiteLink && (
-        <a href={gift.websiteLink} target="_blank" rel="noopener noreferrer">
-          View Website →
-        </a>
-      )}
+      <div className="flex flex-col mt-6">
+        {gift.link && (
+          <a
+            href={gift.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-blue-300 hover:text-blue-400"
+          >
+            View Project →
+          </a>
+        )}
+        {gift.websiteLink && (
+          <a
+            href={gift.websiteLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block text-blue-300 hover:text-blue-400"
+          >
+            Gifter's Website →
+          </a>
+        )}
+      </div>
     </>
   );
 }
@@ -53,7 +69,6 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
       className={`${styles.giftDetailView} ${styles[theme]}`}
       onClick={(e) => {
         e.stopPropagation();
-        e.preventDefault();
       }}
     >
       <button
