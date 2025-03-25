@@ -1,6 +1,8 @@
 import { Gift, APIGift, CustomGift } from "../utils/api";
 import styles from "./GiftDetailView.module.scss";
 import { ImageOrVideo } from "./ImageOrVideo";
+import { getGiftLabelStyles, GiftView, GiftViewInnerView } from "./GiftView";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface GiftDetailViewProps {
   gift: Gift;
@@ -63,30 +65,53 @@ function APIGiftContent({ gift }: { gift: APIGift }) {
 }
 
 export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
-  const theme = gift.theme || "default";
+  const theme = "default"; // Simplified theme handling
+
   return (
-    <div
-      className={`${styles.giftDetailView} ${styles[theme]}`}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-    >
-      <button
-        className="absolute top-8 right-8 text-white hover:text-gray-200 z-10"
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        className={`fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50`}
         onClick={onClose}
       >
-        ✕
-      </button>
+        <div
+          className={`${styles.giftDetailView} relative ${styles[theme]}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          {/* Gift wrapping overlay */}
+          <div
+            className="absolute -top-24 z-20"
+            style={{
+              left: "0",
+              transform: "translateX(-50%)",
+            }}
+          >
+            <GiftViewInnerView gift={gift} />
+          </div>
 
-      <div className={styles.content}>
-        <div className={styles.detailSection}>
-          {isAPIGift(gift) ? (
-            <APIGiftContent gift={gift} />
-          ) : (
-            gift.renderContent()
-          )}
+          <button
+            className="absolute top-8 right-8 text-white hover:text-gray-200 z-10"
+            onClick={onClose}
+          >
+            ✕
+          </button>
+
+          <div className={styles.content}>
+            <div className={styles.detailSection}>
+              {isAPIGift(gift) ? (
+                <APIGiftContent gift={gift} />
+              ) : (
+                gift.renderContent()
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

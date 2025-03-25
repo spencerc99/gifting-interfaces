@@ -1,13 +1,9 @@
 import { Gift } from "../utils/api";
-import { GiftDetailView } from "./GiftDetailView";
-import { useRef } from "react";
 import { getGiftPosition, generateHash } from "../utils";
 
 interface GiftViewProps {
   gift: Gift;
-  isActive: boolean;
   onClick: () => void;
-  onClose: () => void;
 }
 
 // Array of pastel background colors for labels
@@ -19,7 +15,7 @@ const labelColors = [
 ];
 
 // Get deterministic style values based on gift properties
-function getGiftLabelStyles(gift: Gift) {
+export function getGiftLabelStyles(gift: Gift) {
   // Use the same hash function but with a different seed for label styling
   const hash = generateHash(gift.id + "_label");
 
@@ -33,9 +29,8 @@ function getGiftLabelStyles(gift: Gift) {
   };
 }
 
-export function GiftView({ gift, isActive, onClick, onClose }: GiftViewProps) {
+export function GiftView({ gift, onClick }: GiftViewProps) {
   const position = getGiftPosition(gift);
-  const labelStyles = getGiftLabelStyles(gift);
 
   return (
     <>
@@ -44,36 +39,42 @@ export function GiftView({ gift, isActive, onClick, onClose }: GiftViewProps) {
         className={`absolute cursor-pointer transition-transform hover:scale-105`}
         onClick={onClick}
         style={{
-          zIndex: isActive ? 100 : 0,
           overflow: "visible",
           left: `${position.x}px`,
           top: `${position.y}px`,
         }}
       >
-        {/* Gift wrapping image */}
-        <img
-          src={gift.wrappingImg}
-          alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-          className="w-full h-48 max-w-60 object-contain"
-        />
-
-        {/* From/To label with deterministic styling */}
-        {(gift.from || gift.to) && (
-          <div
-            className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color}`}
-            style={{
-              bottom: `${labelStyles.position.y}px`,
-              right: `${labelStyles.position.x}px`,
-              transform: `rotate(${labelStyles.rotation}deg)`,
-              transformOrigin: "center",
-            }}
-          >
-            {gift.from && <div>from: {gift.from}</div>}
-            {gift.to && <div>to: {gift.to}</div>}
-          </div>
-        )}
-        {isActive && <GiftDetailView gift={gift} onClose={onClose} />}
+        <GiftViewInnerView gift={gift} />
       </div>
+    </>
+  );
+}
+
+export function GiftViewInnerView({ gift }: { gift: Gift }) {
+  const labelStyles = getGiftLabelStyles(gift);
+  return (
+    <>
+      <img
+        src={gift.wrappingImg}
+        alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
+        className="w-full h-48 max-w-60 object-contain"
+      />
+
+      {/* From/To label with deterministic styling */}
+      {(gift.from || gift.to) && (
+        <div
+          className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color}`}
+          style={{
+            bottom: `${labelStyles.position.y}px`,
+            right: `${labelStyles.position.x}px`,
+            transform: `rotate(${labelStyles.rotation}deg)`,
+            transformOrigin: "center",
+          }}
+        >
+          {gift.from && <div>from: {gift.from}</div>}
+          {gift.to && <div>to: {gift.to}</div>}
+        </div>
+      )}
     </>
   );
 }

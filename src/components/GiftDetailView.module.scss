@@ -7,22 +7,21 @@
   background-position: center;
   background-repeat: repeat;
   background-size: 800px 800px;
-  position: absolute;
-  z-index: -1;
-  top: 100px;
-  left: 100px;
-  width: 600px;
+  position: relative;
+  max-width: 1000px;
   height: 800px;
-  overflow-y: auto;
+  margin: 4em;
+  max-height: 90vh;
+  overflow: visible;
   border-radius: 12px;
   box-shadow: 0 25px 50px 12px rgba(0, 0, 0, 0.25);
-  padding-top: 4rem;
 
   .content {
     display: grid;
     grid-template-columns: 1fr;
     height: 100%;
     padding: 2rem;
+    overflow-y: auto;
   }
 
   .imageSection {

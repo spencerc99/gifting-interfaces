@@ -7,6 +7,7 @@ import { ThankYous } from "./components/ThankYous";
 import { About } from "./components/About";
 import { motion, AnimatePresence } from "framer-motion";
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from "./utils";
+import { GiftDetailView } from "./components/GiftDetailView";
 
 const CustomGifts: CustomGift[] = [
   {
@@ -73,12 +74,16 @@ function App() {
               <GiftView
                 key={gift.id}
                 gift={gift}
-                isActive={activeGift === gift}
                 onClick={() => setActiveGift(gift)}
-                onClose={() => setActiveGift(null)}
               />
             ))}
           </div>
+          {activeGift && (
+            <GiftDetailView
+              gift={activeGift}
+              onClose={() => setActiveGift(null)}
+            />
+          )}
         </motion.div>
       )}
     </AnimatePresence>
