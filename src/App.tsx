@@ -63,7 +63,11 @@ function App() {
           <h1 className="text-8xl font-bold">Gift Interfaces</h1>
           <p className="text-xl opacity-50">SFPC Winter 2025</p>
           <div
-            className={`relative min-w-[${VIEWPORT_WIDTH}px] min-h-[${VIEWPORT_HEIGHT}px] overflow-auto`}
+            className="relative overflow-auto"
+            style={{
+              minWidth: `${VIEWPORT_WIDTH}px`,
+              minHeight: `${VIEWPORT_HEIGHT}px`,
+            }}
           >
             {giftsToRender.map((gift, index) => (
               <GiftView
