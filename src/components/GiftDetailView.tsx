@@ -1,7 +1,7 @@
-import { Gift, APIGift, CustomGift } from "../utils/api";
+import { Gift, APIGift } from "../utils/api";
 import styles from "./GiftDetailView.module.scss";
 import { ImageOrVideo } from "./ImageOrVideo";
-import { getGiftLabelStyles, GiftView, GiftViewInnerView } from "./GiftView";
+import { GiftViewInnerView } from "./GiftView";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface GiftDetailViewProps {

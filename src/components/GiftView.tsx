@@ -14,6 +14,13 @@ const labelColors = [
   "bg-pink-200",
   "bg-yellow-200",
   "bg-green-200",
+  "bg-purple-200",
+  "bg-red-200",
+  "bg-orange-200",
+  "bg-teal-200",
+  "bg-gray-200",
+  "bg-indigo-200",
+  "bg-lime-200",
 ];
 
 // Get deterministic style values based on gift properties
@@ -42,11 +49,30 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
     hasMoved.current = false;
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    moveStartPos.current = { x: touch.clientX, y: touch.clientY };
+    hasMoved.current = false;
+  };
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!moveStartPos.current) return;
 
     const deltaX = Math.abs(e.clientX - moveStartPos.current.x);
     const deltaY = Math.abs(e.clientY - moveStartPos.current.y);
+
+    // If moved more than 5px in any direction, consider it a drag
+    if (deltaX > 5 || deltaY > 5) {
+      hasMoved.current = true;
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!moveStartPos.current) return;
+
+    const touch = e.touches[0];
+    const deltaX = Math.abs(touch.clientX - moveStartPos.current.x);
+    const deltaY = Math.abs(touch.clientY - moveStartPos.current.y);
 
     // If moved more than 5px in any direction, consider it a drag
     if (deltaX > 5 || deltaY > 5) {
@@ -61,6 +87,14 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
     moveStartPos.current = null;
   };
 
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!hasMoved.current) {
+      e.preventDefault(); // Prevent ghost clicks
+      onClick();
+    }
+    moveStartPos.current = null;
+  };
+
   return (
     <CanMoveElement>
       <div
@@ -69,6 +103,9 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onClick={handleClick}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         style={{
           overflow: "visible",
           left: `${position.x}px`,
@@ -88,7 +125,8 @@ export function GiftViewInnerView({ gift }: { gift: Gift }) {
       <img
         src={gift.wrappingImg}
         alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-        className="w-full h-48 max-w-60 object-contain"
+        className="w-full h-48 max-w-60 object-contain flex-shrink-0"
+        style={{ minHeight: "12rem", width: "15rem" }}
       />
 
       {/* From/To label with deterministic styling */}
