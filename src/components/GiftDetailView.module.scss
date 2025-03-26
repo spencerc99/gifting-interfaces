@@ -14,8 +14,40 @@
   max-height: 90vh;
   overflow: visible;
   border-radius: 12px;
-  padding-top: 3em;
+  padding-top: 4em;
   box-shadow: 0 25px 50px 12px rgba(0, 0, 0, 0.25);
+
+  .giftOverlay {
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%) translateY(-60%);
+  }
+
+  @media (max-width: 768px) {
+    .giftOverlay {
+      transform: none;
+      position: relative;
+      margin: 0 auto;
+      margin-bottom: 4rem;
+      top: 0;
+      left: 0;
+      width: fit-content;
+    }
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: none;
+    margin: 0;
+    padding-top: 1em;
+    border-radius: 0;
+    z-index: 1000;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+  }
 
   .content {
     display: grid;
@@ -23,6 +55,13 @@
     height: 100%;
     padding: 2rem;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* For smooth scrolling on iOS */
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+      height: auto;
+      min-height: 100%;
+    }
   }
 
   .imageSection {
@@ -33,6 +72,11 @@
     img {
       max-height: 70vh;
       object-fit: contain;
+
+      @media (max-width: 768px) {
+        max-height: 50vh;
+        width: 100%;
+      }
     }
   }
 
@@ -41,10 +85,19 @@
     padding: 2rem;
     overflow-y: auto;
 
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+
     h2 {
       font-family: $background-green monospace;
       margin-bottom: 1.5rem;
       font-size: 2rem;
+
+      @media (max-width: 768px) {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
     }
 
     p {
