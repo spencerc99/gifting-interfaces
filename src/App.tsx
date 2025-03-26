@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "./styles/base.scss";
 import { getGiftingInterfaces, Gift, CustomGift } from "./utils/api";
 import { GiftView } from "./components/GiftView";
@@ -30,19 +30,24 @@ function App() {
   const [gifts, setGifts] = useState<Gift[]>([]);
   const [activeGift, setActiveGift] = useState<Gift | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const firstGiftRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     async function fetchGifts() {
       try {
         const giftData = await getGiftingInterfaces();
         setGifts(giftData);
       } finally {
-        window.playhtml.setupPlayElements("can-move");
         setIsLoading(false);
       }
     }
     fetchGifts();
   }, []);
+
+  useEffect(() => {
+    if (firstGiftRef.current) {
+      window.playhtml.setupPlayElements("can-move");
+    }
+  }, [firstGiftRef]);
 
   const giftsToRender = useMemo(() => {
     return [...gifts, ...CustomGifts];
@@ -72,6 +77,7 @@ function App() {
           >
             {giftsToRender.map((gift, index) => (
               <GiftView
+                ref={index === 0 ? firstGiftRef : null}
                 key={gift.id}
                 gift={gift}
                 onClick={() => setActiveGift(gift)}
