@@ -77,9 +77,9 @@ const SAMPLE_THANK_YOUS: ThankYouNoteProps[] = [
           but also spiritually in our mutual attention. Exploring these
           questions so core to our identity as a people together, we hope you
           have found a few ideas about the mystery of giftmaking. We hope the
-          seeds you have (and will continue) planted find a way to grow beyond
-          us into having lives of their own. And eventually through the
-          universe, we hope they find their way back to you, like a longlost
+          seeds you have planted (and will continue to plant) grow beyond us. We
+          hope they gain lives of their own, sow seeds of their own. And we hope
+          those seeds eventually find their way back to you, like a long lost
           classmate, again and again and again.
         </p>
         <p>Love,</p>

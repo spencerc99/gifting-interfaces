@@ -18,13 +18,13 @@ const CustomGifts: CustomGift[] = [
     renderContent: () => <ThankYous />,
     theme: "blue",
   },
-  {
-    type: "custom",
-    id: "about",
-    wrappingImg: "gift-stamp.png",
-    renderContent: () => <About />,
-    theme: "brown",
-  },
+  // {
+  //   type: "custom",
+  //   id: "about",
+  //   wrappingImg: "gift-stamp.png",
+  //   renderContent: () => <About />,
+  //   theme: "brown",
+  // },
 ];
 
 function App() {
@@ -62,10 +62,14 @@ function App() {
             transition={{ duration: 0.5 }}
             className="relative min-h-screen p-8"
           >
-            <h1 className="text-8xl font-bold">Gift Interfaces</h1>
-            <p className="text-xl opacity-50">SFPC Winter 2025</p>
+            <div className="absolute top-8 left-8 z-50">
+              <h1 className="text-8xl font-bold whitespace-nowrap">
+                Gift Interfaces
+              </h1>
+              <p className="text-xl opacity-50">SFPC Winter 2025</p>
+            </div>
             <div
-              className="relative overflow-auto"
+              className="relative overflow-auto z-50 mt-36"
               style={{
                 minWidth: `${VIEWPORT_WIDTH}px`,
                 minHeight: `${VIEWPORT_HEIGHT}px`,
