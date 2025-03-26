@@ -22,10 +22,15 @@ function APIGiftContent({ gift }: { gift: APIGift }) {
       w: "450",
     }
   );
+
   return (
     <>
       <h2 className="text-2xl">{gift.title || "Untitled Gift"}</h2>
-      <p>{gift.description}</p>
+      {gift.description.split("\n").map((paragraph, i) => (
+        <p key={i} className="mb-4">
+          {paragraph}
+        </p>
+      ))}
 
       <div className="mt-8 space-y-4">
         {transformedImageUrls.map((url, index) => (
