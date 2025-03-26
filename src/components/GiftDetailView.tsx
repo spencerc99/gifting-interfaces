@@ -85,10 +85,10 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
         >
           {/* Gift wrapping overlay */}
           <div
-            className="absolute -top-24 z-20"
+            className="absolute z-20"
             style={{
               left: "0",
-              transform: "translateX(-50%)",
+              transform: "translateX(-50%) translateY(-80%)",
             }}
           >
             <GiftViewInnerView gift={gift} />
