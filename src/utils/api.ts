@@ -32,5 +32,5 @@ export async function getGiftingInterfaces(): Promise<APIGift[]> {
   );
   const respBody = await resp.json();
 
-  return respBody as APIGift[];
+  return (respBody as APIGift[]).filter((gift) => Boolean(gift.wrappingImg));
 }
