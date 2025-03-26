@@ -1,6 +1,7 @@
 import { Gift } from "../utils/api";
 import { getGiftPosition, generateHash } from "../utils";
 import { CanMoveElement } from "@playhtml/react";
+import { useRef } from "react";
 
 interface GiftViewProps {
   gift: Gift;
@@ -31,14 +32,43 @@ export function getGiftLabelStyles(gift: Gift) {
 }
 
 export function GiftView({ gift, onClick }: GiftViewProps) {
+  // Workaround to handle the drag to move interaction & click open modal interaction
   const position = getGiftPosition(gift);
+  const moveStartPos = useRef<{ x: number; y: number } | null>(null);
+  const hasMoved = useRef(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    moveStartPos.current = { x: e.clientX, y: e.clientY };
+    hasMoved.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!moveStartPos.current) return;
+
+    const deltaX = Math.abs(e.clientX - moveStartPos.current.x);
+    const deltaY = Math.abs(e.clientY - moveStartPos.current.y);
+
+    // If moved more than 5px in any direction, consider it a drag
+    if (deltaX > 5 || deltaY > 5) {
+      hasMoved.current = true;
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (!hasMoved.current) {
+      onClick();
+    }
+    moveStartPos.current = null;
+  };
 
   return (
     <CanMoveElement>
       <div
         id={gift.id}
         className={`absolute cursor-pointer transition-transform hover:scale-105`}
-        onClick={onClick}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onClick={handleClick}
         style={{
           overflow: "visible",
           left: `${position.x}px`,
