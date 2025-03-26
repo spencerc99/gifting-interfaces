@@ -69,7 +69,7 @@ function App() {
               <p className="text-xl opacity-50">SFPC Winter 2025</p>
             </div>
             <div
-              className="relative overflow-auto z-50 mt-36"
+              className="relative overflow-auto z-50 mt-36 overflow-visible"
               style={{
                 minWidth: `${VIEWPORT_WIDTH}px`,
                 minHeight: `${VIEWPORT_HEIGHT}px`,
