@@ -1,5 +1,6 @@
 import { Gift } from "../utils/api";
 import { getGiftPosition, generateHash } from "../utils";
+import { CanMoveElement } from "@playhtml/react";
 
 interface GiftViewProps {
   gift: Gift;
@@ -33,9 +34,9 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
   const position = getGiftPosition(gift);
 
   return (
-    <>
+    <CanMoveElement>
       <div
-        can-move=""
+        id={gift.id}
         className={`absolute cursor-pointer transition-transform hover:scale-105`}
         onClick={onClick}
         style={{
@@ -46,7 +47,7 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
       >
         <GiftViewInnerView gift={gift} />
       </div>
-    </>
+    </CanMoveElement>
   );
 }
 

@@ -8,6 +8,7 @@ import { About } from "./components/About";
 import { motion, AnimatePresence } from "framer-motion";
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from "./utils";
 import { GiftDetailView } from "./components/GiftDetailView";
+import { PlayProvider } from "@playhtml/react";
 
 const CustomGifts: CustomGift[] = [
   {
@@ -30,7 +31,7 @@ function App() {
   const [gifts, setGifts] = useState<Gift[]>([]);
   const [activeGift, setActiveGift] = useState<Gift | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const firstGiftRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     async function fetchGifts() {
       try {
@@ -43,56 +44,51 @@ function App() {
     fetchGifts();
   }, []);
 
-  useEffect(() => {
-    if (firstGiftRef.current) {
-      window.playhtml.setupPlayElements("can-move");
-    }
-  }, [firstGiftRef]);
-
   const giftsToRender = useMemo(() => {
     return [...gifts, ...CustomGifts];
   }, [gifts, CustomGifts]);
 
   return (
-    <AnimatePresence mode="wait">
-      {isLoading ? (
-        <LoadingScreen key="loading" text="Loading gifts..." />
-      ) : (
-        <motion.div
-          key="content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative min-h-screen p-8"
-        >
-          <h1 className="text-8xl font-bold">Gift Interfaces</h1>
-          <p className="text-xl opacity-50">SFPC Winter 2025</p>
-          <div
-            className="relative overflow-auto"
-            style={{
-              minWidth: `${VIEWPORT_WIDTH}px`,
-              minHeight: `${VIEWPORT_HEIGHT}px`,
-            }}
+    <PlayProvider>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingScreen key="loading" text="Loading gifts..." />
+        ) : (
+          <motion.div
+            key="content"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative min-h-screen p-8"
           >
-            {giftsToRender.map((gift, index) => (
-              <GiftView
-                ref={index === 0 ? firstGiftRef : null}
-                key={gift.id}
-                gift={gift}
-                onClick={() => setActiveGift(gift)}
+            <h1 className="text-8xl font-bold">Gift Interfaces</h1>
+            <p className="text-xl opacity-50">SFPC Winter 2025</p>
+            <div
+              className="relative overflow-auto"
+              style={{
+                minWidth: `${VIEWPORT_WIDTH}px`,
+                minHeight: `${VIEWPORT_HEIGHT}px`,
+              }}
+            >
+              {giftsToRender.map((gift, index) => (
+                <GiftView
+                  key={gift.id}
+                  gift={gift}
+                  onClick={() => setActiveGift(gift)}
+                />
+              ))}
+            </div>
+            {activeGift && (
+              <GiftDetailView
+                gift={activeGift}
+                onClose={() => setActiveGift(null)}
               />
-            ))}
-          </div>
-          {activeGift && (
-            <GiftDetailView
-              gift={activeGift}
-              onClose={() => setActiveGift(null)}
-            />
-          )}
-        </motion.div>
-      )}
-    </AnimatePresence>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </PlayProvider>
   );
 }
 
