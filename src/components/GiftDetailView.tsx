@@ -14,7 +14,7 @@ function isAPIGift(gift: Gift): gift is APIGift {
 }
 
 function APIGiftContent({ gift }: { gift: APIGift }) {
-  const transformedImageUrls = gift.imageUrls.map(
+  const transformedImageUrls = (gift?.imageUrls || []).map(
     (url) => url.replace("https://codahosted.io", "https://codaio.imgix.net"),
     {
       auto: "format,compress",

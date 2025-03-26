@@ -26,7 +26,7 @@ export function getGiftLabelStyles(gift: Gift) {
     color: labelColors[hash % labelColors.length],
     position: {
       x: (hash % 20) - 10, // Range: -10 to 10px
-      y: ((hash >> 4) % 20) - 10, // Use different bits for y offset
+      y: ((hash >> 4) % 20) - 30, // Use different bits for y offset
     },
   };
 }
