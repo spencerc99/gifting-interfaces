@@ -31,9 +31,10 @@ export function getGiftLabelStyles(gift: Gift) {
   return {
     rotation: (hash % 20) - 10, // Range: -10 to 10 degrees
     color: labelColors[hash % labelColors.length],
-    position: {
-      x: (hash % 20) - 10, // Range: -10 to 10px
-      y: ((hash >> 4) % 20) - 30, // Use different bits for y offset
+    transform: {
+      // Use different bits of hash for x/y percentages
+      x: `${(hash % 10) + 40}%`, // Range: -0% to -50%
+      y: `${((hash >> 4) % 10) + 40}%`, // Range: -0% to -50%
     },
   };
 }
@@ -125,8 +126,11 @@ export function GiftViewInnerView({ gift }: { gift: Gift }) {
       <img
         src={gift.wrappingImg}
         alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-        className="w-full h-48 max-w-60 object-contain flex-shrink-0"
-        style={{ minHeight: "12rem", width: "15rem" }}
+        className="h-48 max-w-60 object-contain flex-shrink-0"
+        style={{
+          minWidth: "40px",
+          width: "auto",
+        }}
       />
 
       {/* From/To label with deterministic styling */}
@@ -134,10 +138,11 @@ export function GiftViewInnerView({ gift }: { gift: Gift }) {
         <div
           className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color}`}
           style={{
-            bottom: `${labelStyles.position.y}px`,
-            right: `${labelStyles.position.x}px`,
-            transform: `rotate(${labelStyles.rotation}deg)`,
+            bottom: 0,
+            right: 0,
+            transform: `translate(${labelStyles.transform.x}, ${labelStyles.transform.y}) rotate(${labelStyles.rotation}deg)`,
             transformOrigin: "center",
+            opacity: 0.9,
           }}
         >
           {gift.from && <div>from: {gift.from}</div>}
