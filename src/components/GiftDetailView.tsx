@@ -32,13 +32,13 @@ function APIGiftContent({ gift }: { gift: APIGift }) {
         </p>
       ))}
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 space-y-4 flex flex-wrap gap-4 justify-center">
         {transformedImageUrls.map((url, index) => (
           <ImageOrVideo
             key={index}
             src={url}
             alt={gift.imageAltText?.[index] || ""}
-            className="w-full rounded-lg shadow-md"
+            className="w-full rounded-xl shadow-md"
           />
         ))}
       </div>
@@ -83,7 +83,9 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
         onClick={onClose}
       >
         <div
-          className={`${styles.giftDetailView} relative ${styles[theme]}`}
+          className={`${styles.giftDetailView} relative ${styles[theme]} ${
+            "type" in gift && gift.type === "custom" ? styles.customGift : ""
+          }`}
           onClick={(e) => {
             e.stopPropagation();
           }}

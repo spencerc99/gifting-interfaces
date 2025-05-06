@@ -15,10 +15,16 @@ export interface APIGift extends BaseGift {
   wrappingImgAlt?: string;
 }
 
-export interface CustomGift extends BaseGift {
+export interface CustomGift {
   type: "custom";
+  id: string;
+  wrappingImg: string;
   renderContent: () => React.ReactNode;
-  theme?: "green" | "blue" | "brown";
+  theme: string;
+  label?: {
+    text: string;
+    color?: string;
+  };
 }
 
 export type Gift = APIGift | CustomGift;

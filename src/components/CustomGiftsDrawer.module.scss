@@ -1,0 +1,131 @@
+@import "../styles/variables";
+
+.drawer {
+  position: fixed;
+  bottom: 0;
+  right: 1rem;
+  z-index: 10000;
+  width: fit-content;
+
+  @media (max-width: 768px) {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+.toggleButton {
+  position: fixed;
+  top: -40px;
+  left: 50%;
+  border-radius: 50%;
+  width: 120px;
+  background: white !important;
+  background-image: url("/xv.png") !important;
+  height: 80px;
+  z-index: 100000;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:focus {
+    outline: none;
+  }
+  img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.toggleBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background-size: 35px 35px;
+  background-repeat: repeat;
+}
+
+.chevron {
+  position: relative;
+  color: #4444ff;
+  font-size: 24px;
+  z-index: 1;
+}
+
+.drawerContent {
+  position: relative;
+  width: 100%;
+}
+
+.border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 2rem;
+  height: 100%;
+  background: white;
+  background-image: url("/xv.png");
+  // background-image: url("/border.png");
+  // background-size: 35px 35px;
+  // background-repeat: repeat;
+}
+
+.container {
+  position: relative;
+  background: white;
+  background-image: url("/xv.png");
+  padding: 1rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 15px solid transparent;
+  border-radius: 1rem;
+  background-clip: padding-box;
+}
+
+.giftGrid {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.giftItem {
+  position: relative;
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.giftLabel {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  max-width: 70%;
+  transform: translate(-50%, -50%);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  font-family: "Gorditas";
+}

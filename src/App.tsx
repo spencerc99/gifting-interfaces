@@ -3,29 +3,13 @@ import "./styles/base.scss";
 import { getGiftingInterfaces, Gift, CustomGift } from "./utils/api";
 import { GiftView } from "./components/GiftView";
 import { LoadingScreen } from "./components/LoadingSpinner";
-import { ThankYous } from "./components/ThankYous";
-import { About } from "./components/About";
 import { motion, AnimatePresence } from "framer-motion";
 import { VIEWPORT_WIDTH, VIEWPORT_HEIGHT } from "./utils";
 import { GiftDetailView } from "./components/GiftDetailView";
 import { PlayProvider } from "@playhtml/react";
-
-const CustomGifts: CustomGift[] = [
-  {
-    type: "custom",
-    id: "thank-yous",
-    wrappingImg: "envelope.png",
-    renderContent: () => <ThankYous />,
-    theme: "blue",
-  },
-  // {
-  //   type: "custom",
-  //   id: "about",
-  //   wrappingImg: "gift-stamp.png",
-  //   renderContent: () => <About />,
-  //   theme: "brown",
-  // },
-];
+import { CustomGiftsDrawer } from "./components/CustomGiftsDrawer";
+import { Instructions } from "./components/Instructions";
+import { SpotifyRadio } from "./components/SpotifyRadio";
 
 function App() {
   const [gifts, setGifts] = useState<Gift[]>([]);
@@ -44,9 +28,10 @@ function App() {
     fetchGifts();
   }, []);
 
+  // Only render regular gifts in the main area
   const giftsToRender = useMemo(() => {
-    return [...gifts, ...CustomGifts];
-  }, [gifts, CustomGifts]);
+    return gifts;
+  }, [gifts]);
 
   return (
     <PlayProvider>
@@ -62,11 +47,13 @@ function App() {
             transition={{ duration: 0.5 }}
             className="relative min-h-screen p-8"
           >
-            <div className="absolute top-8 left-8 z-50">
-              <h1 className="text-8xl font-bold whitespace-nowrap">
-                Gift Interfaces
-              </h1>
-              <p className="text-xl opacity-50">SFPC Winter 2025</p>
+            <Instructions />
+            <div className="fixed top-0 right-0 z-50">
+              <SpotifyRadio
+                playlistUrl="https://open.spotify.com/embed/playlist/6wg8puxlCshrUuzI4P8neT?utm_source=generator"
+                width="100px"
+                height="100px"
+              />
             </div>
             <div
               className="relative overflow-auto z-50 mt-36 overflow-visible"
@@ -83,6 +70,8 @@ function App() {
                 />
               ))}
             </div>
+            {/* Custom Gifts Drawer */}
+            <CustomGiftsDrawer onGiftClick={(gift) => setActiveGift(gift)} />
             {activeGift && (
               <GiftDetailView
                 gift={activeGift}
