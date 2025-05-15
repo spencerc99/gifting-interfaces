@@ -99,7 +99,7 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
             className="absolute top-8 right-8 text-white hover:text-gray-200 z-10"
             onClick={onClose}
           >
-            ✕
+            <img src="/X.svg" alt="Close" className="w-10 h-10" />
           </button>
 
           <div className={styles.content}>

@@ -9,15 +9,9 @@ declare global {
 
 interface SpotifyRadioProps {
   playlistUrl: string;
-  width?: string;
-  height?: string;
 }
 
-export const SpotifyRadio: React.FC<SpotifyRadioProps> = ({
-  playlistUrl,
-  width = "300px",
-  height = "300px",
-}) => {
+export const SpotifyRadio: React.FC<SpotifyRadioProps> = ({ playlistUrl }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const embedControllerRef = useRef<any>(null);
   const elementRef = useRef<HTMLDivElement>(null);
@@ -79,16 +73,28 @@ export const SpotifyRadio: React.FC<SpotifyRadioProps> = ({
       <button
         onClick={togglePlay}
         className={styles.radioButton}
-        style={{ width, height }}
         aria-label={isPlaying ? "Stop music" : "Play music"}
       >
         <img
-          src="/radio-image.png"
+          src="/2d/boombox.svg"
           alt="Vintage Radio"
-          className={`${styles.radioImage} ${isPlaying ? styles.playing : ""}`}
+          className={`${styles.radioImage} ${
+            isPlaying ? styles.playing : ""
+          } shadow-xl`}
         />
       </button>
       <div ref={elementRef} style={{ display: "none" }} />
+      <div
+        className={`${styles.playlistLabel} ${isPlaying ? styles.visible : ""}`}
+      >
+        <a
+          href={playlistUrl.replace("/embed", "")}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          see playlist
+        </a>
+      </div>
     </div>
   );
 };

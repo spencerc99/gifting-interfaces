@@ -8,9 +8,14 @@
   width: fit-content;
 
   @media (max-width: 768px) {
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+
+    .giftItem {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -117,8 +122,8 @@
 
 .giftLabel {
   position: absolute;
-  top: 50%;
-  left: 15%;
+  top: 80%;
+  right: -5%;
   max-width: 70%;
   transform: translate(-50%, -50%);
   padding: 0.25rem 0.75rem;

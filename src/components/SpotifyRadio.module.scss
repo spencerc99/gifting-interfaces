@@ -27,6 +27,13 @@
   height: 100%;
   object-fit: contain;
   transition: filter 0.3s ease;
+  max-width: 100px;
+  max-height: 100px;
+
+  @media (max-width: 768px) {
+    max-width: 80px;
+    max-height: 80px;
+  }
 
   &.playing {
     animation: pulse 2s infinite;
@@ -38,9 +45,22 @@
     filter: brightness(1);
   }
   50% {
-    filter: brightness(1.2);
+    filter: brightness(1.1);
   }
   100% {
     filter: brightness(1);
+  }
+}
+
+.playlistLabel {
+  margin-top: 0.1rem;
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+  max-width: inherit;
+
+  &.visible {
+    opacity: 1;
   }
 }

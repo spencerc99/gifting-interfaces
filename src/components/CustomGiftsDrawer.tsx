@@ -14,7 +14,7 @@ const CustomGifts: CustomGift[] = [
   {
     type: "custom",
     id: "about",
-    wrappingImg: "gift-stamp.png",
+    wrappingImg: "/2d/gift.svg",
     renderContent: () => <About />,
     theme: "brown",
     label: {
@@ -25,7 +25,7 @@ const CustomGifts: CustomGift[] = [
   {
     type: "custom",
     id: "thank-yous",
-    wrappingImg: "envelope.png",
+    wrappingImg: "/2d/thank-you.svg",
     renderContent: () => <ThankYous />,
     theme: "blue",
     label: {
@@ -36,7 +36,7 @@ const CustomGifts: CustomGift[] = [
   {
     type: "custom",
     id: "gacha",
-    wrappingImg: "gacha.png",
+    wrappingImg: "/2d/gacha.svg",
     renderContent: () => <Gacha />,
     theme: "brown",
     label: {
@@ -55,7 +55,7 @@ export function CustomGiftsDrawer({ onGiftClick }: CustomGiftsDrawerProps) {
   return (
     <motion.div
       className={`${styles.drawer} shadow-xl`}
-      animate={{ y: isExpanded ? "30px" : "70%" }}
+      animate={{ y: isExpanded ? "10px" : "70%" }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <motion.button

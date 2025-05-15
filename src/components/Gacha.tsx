@@ -109,63 +109,114 @@ export const Gacha: React.FC<GachaProps> = ({}) => {
   }
 
   return (
-    <div className="relative w-full max-w-md mx-auto">
-      {/* Loading State */}
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/80">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" />
-        </div>
-      )}
-
-      {/* Gacha Machine */}
-      <motion.div
-        className={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
-        whileHover={{ scale: isLoading ? 1 : 1.05 }}
-        whileTap={{ scale: isLoading ? 1 : 0.95 }}
-        onClick={handleGachaClick}
-      >
-        <img src={"/gacha.png"} alt="Gacha Machine" className="w-full h-auto" />
-      </motion.div>
-
-      {/* Ball Animation */}
+    <>
       <AnimatePresence>
-        {isAnimating && !showGift && (
-          <motion.div
-            className="absolute bottom-0 left-1/2 w-16 h-16 bg-red-500 rounded-full"
-            initial={{ y: -100, x: "-50%" }}
-            animate={{
-              y: ["-100%", "100%"],
-              rotate: [0, 720],
-            }}
-            transition={{
-              duration: 2,
-              ease: "easeInOut",
-            }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Gift Reveal */}
-      <AnimatePresence>
-        {showGift && currentGift && (
-          <motion.div
-            className="fixed inset-0 flex items-center justify-center bg-black/50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="bg-white rounded-lg p-6 max-w-sm w-full m-4"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0, rotate: 180 }}
+        <div
+          className="absolute top-[50%] left-[50%] w-full h-full translate-x-[-50%] translate-y-[-50%]"
+          onClick={() => {
+            if (showGift && currentGift) {
+              setShowGift(false);
+            }
+          }}
+        >
+          {showGift && currentGift && (
+            <motion.img
+              src="/2d/star.svg"
+              className="w-full h-full"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
               transition={{ type: "spring", duration: 0.5 }}
+            />
+          )}
+        </div>
+      </AnimatePresence>
+      <div className="relative w-full max-w-md mx-auto h-full mt-[-2em] flex flex-col gap-2 text-center">
+        {/* Loading State */}
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500" />
+          </div>
+        )}
+
+        <p className="">
+          All of our class inspiration in a Gacha. Click to get one!
+        </p>
+
+        {/* Gacha Machine */}
+        <motion.div
+          className={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
+          whileHover={{ scale: isLoading ? 1 : 1.05 }}
+          whileTap={{ scale: isLoading ? 1 : 0.95 }}
+          onClick={handleGachaClick}
+        >
+          <img
+            src={"/gacha.png"}
+            alt="Gacha Machine"
+            className="w-full h-auto"
+          />
+        </motion.div>
+        <p className="pt-6">
+          View the{" "}
+          <a href="https://www.are.na/elan-ullendorff/gifting-interfaces">
+            full archive
+          </a>
+        </p>
+
+        {/* Ball Animation */}
+        <AnimatePresence>
+          {isAnimating && !showGift && (
+            <motion.div
+              className="absolute bottom-0 left-1/2 w-16 h-16 bg-red-500 rounded-full"
+              initial={{ y: -100, x: "-50%" }}
+              animate={{
+                y: ["-100%", "50%"],
+                rotate: [0, 720],
+              }}
+              transition={{
+                duration: 1.5,
+                ease: "easeInOut",
+              }}
+            />
+          )}
+        </AnimatePresence>
+
+        {/* Gift Reveal */}
+        <AnimatePresence>
+          {showGift && currentGift && (
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
             >
-              <iframe
-                src={`https://are.na/block/${currentGift.id}`}
-                className="w-full rounded-lg mb-4 h-[400px]"
-              />
-              {/* {currentGift.image && (
+              <motion.div
+                className="bg-white rounded-lg max-w-lg w-full max-h-[800px]"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                exit={{ scale: 0, rotate: 180 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                style={{
+                  height: "-webkit-fill-available",
+                }}
+              >
+                <iframe
+                  src={`https://are.na/block/${currentGift.id}`}
+                  className="w-full"
+                  // On load, set height to max it can do to fit the height of the parent container
+                  onLoad={(e) => {
+                    const iframe = e.target as HTMLIFrameElement;
+                    const parentHeight = iframe.parentElement?.clientHeight;
+                    if (parentHeight) {
+                      iframe.style.height = `${parentHeight - 56}px`;
+                    }
+                  }}
+                />
+                {/* {currentGift.image && (
                 <img
                   src={currentGift.image.display.url}
                   alt={currentGift.title}
@@ -174,32 +225,33 @@ export const Gacha: React.FC<GachaProps> = ({}) => {
               )}
               <h3 className="text-xl font-bold mb-2">{currentGift.title}</h3>
               <p className="text-gray-600 mb-6">{currentGift.description}</p> */}
-              <div className="flex flex-col gap-3">
-                <a
-                  href={`https://are.na/block/${currentGift.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-center transition-colors"
-                >
-                  View on Are.na
-                </a>
-                <button
-                  className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-                  onClick={() => {
-                    setShowGift(false);
-                    // Wait for close animation to finish before allowing new pull
-                    setTimeout(() => {
-                      handleGachaClick();
-                    }, 500);
-                  }}
-                >
-                  Try Again
-                </button>
-              </div>
+                <div className="flex flex-row gap-1 px-4 pb-4">
+                  <button
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+                    onClick={() => {
+                      setShowGift(false);
+                      // Wait for close animation to finish before allowing new pull
+                      setTimeout(() => {
+                        handleGachaClick();
+                      }, 500);
+                    }}
+                  >
+                    Try Again
+                  </button>
+                  <a
+                    href={`https://are.na/block/${currentGift.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-center transition-colors"
+                  >
+                    View
+                  </a>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 };

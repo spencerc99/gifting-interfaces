@@ -48,7 +48,7 @@ function App() {
             className="relative min-h-screen p-8"
           >
             <Instructions />
-            <div className="fixed top-0 right-0 z-50">
+            <div className="fixed top-0 right-0 z-[10000]">
               <SpotifyRadio
                 playlistUrl="https://open.spotify.com/embed/playlist/6wg8puxlCshrUuzI4P8neT?utm_source=generator"
                 width="100px"
