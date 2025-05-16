@@ -119,14 +119,22 @@ export function GiftView({ gift, onClick }: GiftViewProps) {
   );
 }
 
-export function GiftViewInnerView({ gift }: { gift: Gift }) {
+export function GiftViewInnerView({
+  gift,
+  size = "large",
+}: {
+  gift: Gift;
+  size?: "small" | "large";
+}) {
   const labelStyles = getGiftLabelStyles(gift);
   return (
     <>
       <img
         src={gift.wrappingImg}
         alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-        className="h-48 max-w-60 object-contain flex-shrink-0"
+        className={`h-${size === "small" ? "32" : "48"} max-w-${
+          size === "small" ? "40" : "60"
+        } object-contain flex-shrink-0`}
         style={{
           minWidth: "40px",
           width: "auto",
@@ -136,7 +144,7 @@ export function GiftViewInnerView({ gift }: { gift: Gift }) {
       {/* From/To label with deterministic styling */}
       {(gift.from || gift.to) && (
         <div
-          className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color}`}
+          className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color} text-black`}
           style={{
             bottom: 0,
             right: 0,

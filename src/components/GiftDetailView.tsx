@@ -71,6 +71,7 @@ function APIGiftContent({ gift }: { gift: APIGift }) {
 
 export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
   const theme = "default"; // Simplified theme handling
+  const isCustomGift = "type" in gift && gift.type === "custom";
 
   return (
     <AnimatePresence>
@@ -84,7 +85,7 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
       >
         <div
           className={`${styles.giftDetailView} relative ${styles[theme]} ${
-            "type" in gift && gift.type === "custom" ? styles.customGift : ""
+            isCustomGift ? styles.customGift : ""
           }`}
           onClick={(e) => {
             e.stopPropagation();
@@ -92,7 +93,10 @@ export function GiftDetailView({ gift, onClose }: GiftDetailViewProps) {
         >
           {/* Gift wrapping overlay */}
           <div className={`absolute z-20 ${styles.giftOverlay}`}>
-            <GiftViewInnerView gift={gift} />
+            <GiftViewInnerView
+              gift={gift}
+              size={isCustomGift ? "small" : "large"}
+            />
           </div>
 
           <button
