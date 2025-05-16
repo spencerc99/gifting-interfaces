@@ -135,14 +135,14 @@ export function GiftViewInnerView({
       <img
         src={gift.wrappingImg}
         alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-        className={`h-${
-          size === "small" ? "32" : size === "full" ? "full" : "48"
-        } max-w-${
-          size === "small" ? "40" : size === "full" ? "full" : "60"
-        } object-contain flex-shrink-0`}
+        className="object-contain flex-shrink-0"
         style={{
           minWidth: "40px",
           width: "auto",
+          height:
+            size === "small" ? "8rem" : size === "full" ? "100%" : "12rem",
+          maxWidth:
+            size === "small" ? "10rem" : size === "full" ? "100%" : "15rem",
         }}
       />
 
