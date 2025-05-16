@@ -1,0 +1,14 @@
+.giftLabel {
+  position: absolute;
+  top: 80%;
+  right: -5%;
+  max-width: 70%;
+  transform: translate(-50%, -50%);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  font-family: "Gorditas";
+}

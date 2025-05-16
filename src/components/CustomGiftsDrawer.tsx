@@ -5,6 +5,7 @@ import { Gacha } from "./Gacha";
 import { ThankYous } from "./ThankYous";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { GiftViewInnerView } from "./GiftView";
 
 interface CustomGiftsDrawerProps {
   onGiftClick: (gift: CustomGift) => void;
@@ -88,23 +89,7 @@ export function CustomGiftsDrawer({ onGiftClick }: CustomGiftsDrawerProps) {
                   className={styles.giftItem}
                   onClick={() => onGiftClick(gift)}
                 >
-                  <img
-                    src={gift.wrappingImg}
-                    alt=""
-                    className="w-full h-full object-contain"
-                  />
-                  {gift.label && (
-                    <motion.div
-                      className={styles.giftLabel}
-                      initial={{ rotate: getRandomRotation() }}
-                      style={{
-                        backgroundColor: gift.label.color,
-                        color: "white",
-                      }}
-                    >
-                      {gift.label.text}
-                    </motion.div>
-                  )}
+                  <GiftViewInnerView gift={gift} size="full" />
                 </div>
               ))}
             </div>

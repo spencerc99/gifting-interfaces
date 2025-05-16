@@ -114,12 +114,17 @@ export function ThankYous() {
   return (
     <div className="flex flex-col gap-8">
       <h1 className="font-bold text-8xl">Thank you notes</h1>
-      <hr />
-      <div className="flex flex-col gap-8 mt-8">
+      <div className="flex flex-col gap-8">
         {SAMPLE_THANK_YOUS.map((note, index) => (
           <ThankYouNote key={index} {...note} />
         ))}
       </div>
+      <p>
+        add your own in the{" "}
+        <a href="https://www.are.na/sfpc-gifting-interfaces/thank-you-notes-e6ayq2tpyw4">
+          are.na channel
+        </a>
+      </p>
       <iframe
         src="https://www.are.na/sfpc-gifting-interfaces/thank-you-notes-e6ayq2tpyw4"
         className="w-full h-full min-h-[600px]"

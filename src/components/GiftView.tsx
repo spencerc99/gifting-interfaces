@@ -2,7 +2,7 @@ import { Gift } from "../utils/api";
 import { getGiftPosition, generateHash } from "../utils";
 import { CanMoveElement } from "@playhtml/react";
 import { useRef } from "react";
-
+import styles from "./GiftView.module.scss";
 interface GiftViewProps {
   gift: Gift;
   onClick: () => void;
@@ -124,16 +124,21 @@ export function GiftViewInnerView({
   size = "large",
 }: {
   gift: Gift;
-  size?: "small" | "large";
+  size?: "small" | "large" | "full";
 }) {
   const labelStyles = getGiftLabelStyles(gift);
+  const isCustomGift = "type" in gift && gift.type === "custom";
+  const isAPIGift = !("type" in gift);
+
   return (
     <>
       <img
         src={gift.wrappingImg}
         alt={"wrappingImgAlt" in gift ? gift.wrappingImgAlt || "" : ""}
-        className={`h-${size === "small" ? "32" : "48"} max-w-${
-          size === "small" ? "40" : "60"
+        className={`h-${
+          size === "small" ? "32" : size === "full" ? "full" : "48"
+        } max-w-${
+          size === "small" ? "40" : size === "full" ? "full" : "60"
         } object-contain flex-shrink-0`}
         style={{
           minWidth: "40px",
@@ -142,7 +147,7 @@ export function GiftViewInnerView({
       />
 
       {/* From/To label with deterministic styling */}
-      {(gift.from || gift.to) && (
+      {isAPIGift && (gift.from || gift.to) && (
         <div
           className={`absolute p-2 rounded shadow-md text-sm ${labelStyles.color} text-black`}
           style={{
@@ -155,6 +160,18 @@ export function GiftViewInnerView({
         >
           {gift.from && <div>from: {gift.from}</div>}
           {gift.to && <div>to: {gift.to}</div>}
+        </div>
+      )}
+
+      {isCustomGift && gift.label && (
+        <div
+          className={styles.giftLabel}
+          style={{
+            backgroundColor: gift.label.color,
+            color: "white",
+          }}
+        >
+          {gift.label.text}
         </div>
       )}
     </>
