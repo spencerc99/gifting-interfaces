@@ -11,4 +11,11 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1;
   font-family: "Gorditas";
+
+  @media (max-width: 500px) {
+    font-size: 8px;
+    right: 0;
+    transform: none;
+    max-width: 90%;
+  }
 }

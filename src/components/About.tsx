@@ -94,15 +94,22 @@ export function About() {
       <h2 className="text-xl mb-0">Teachers</h2>
       <p>
         <a href="https://spencer.place">
-          <span className="text-gray-500">Spencer Chang</span> is an artist,
-          designer, and toymaker.
-        </a>
+          <span className="text-gray-500">Spencer Chang</span>
+        </a>{" "}
+        is an artist, designer, and toymaker. You can follow their work by
+        subscribing to{" "}
+        <a href="https://spencerchang.substack.com/">spencer's paradoxes</a>.
       </p>
       <p>
         <a href="https://elan.place/">
-          <span className="text-gray-500">Elan Ullendorff</span> is a designer,
-          educator, and writer.
+          <span className="text-gray-500">Elan Ullendorff</span>
         </a>
+        is a designer, educator, and writer. You can follow their work by
+        subscribing to{" "}
+        <a href="https://escapethealgorithm.substack.com/">
+          Escape the Algorithm
+        </a>
+        .
       </p>
       <hr />
       <h2 className="text-xl mb-0">Links</h2>
