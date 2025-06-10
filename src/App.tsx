@@ -9,7 +9,7 @@ import { GiftDetailView } from "./components/GiftDetailView";
 import { PlayProvider } from "@playhtml/react";
 import { CustomGiftsDrawer } from "./components/CustomGiftsDrawer";
 import { Instructions } from "./components/Instructions";
-import { SpotifyRadio } from "./components/SpotifyRadio";
+
 
 function App() {
   const [gifts, setGifts] = useState<Gift[]>([]);
@@ -48,15 +48,9 @@ function App() {
             className="relative min-h-screen p-8"
           >
             <Instructions />
-            <div className="fixed top-0 right-0 z-[10000]">
-              <SpotifyRadio
-                playlistUrl="https://open.spotify.com/embed/playlist/6wg8puxlCshrUuzI4P8neT?utm_source=generator"
-                width="100px"
-                height="100px"
-              />
-            </div>
+          
             <div
-              className="relative overflow-auto z-50 mt-36 overflow-visible"
+              className="relative overflow-auto z-50 mt-72 overflow-visible"
               style={{
                 minWidth: `${VIEWPORT_WIDTH}px`,
                 minHeight: `${VIEWPORT_HEIGHT}px`,
