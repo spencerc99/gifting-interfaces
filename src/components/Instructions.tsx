@@ -1,3 +1,5 @@
+import { SpotifyRadio } from "./SpotifyRadio";
+
 export const Instructions = () => {
   return (
     <div
@@ -24,6 +26,11 @@ export const Instructions = () => {
         Open a container to find the gift within. Then share it with a friend
         who would enjoy it.
       </p>
+
+      {/* Add the functional radio at the bottom */}
+      <div className="mt-4">
+        <SpotifyRadio playlistUrl="https://open.spotify.com/embed/playlist/6wg8puxlCshrUuzI4P8neT" />
+      </div>
     </div>
   );
 };
