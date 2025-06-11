@@ -105,6 +105,12 @@ export const SpotifyRadio: React.FC<SpotifyRadioProps> = ({ playlistUrl }) => {
           if (!e.data.isPaused) {
             setIsLoading(false); // Stop loading when playback starts
           }
+
+          // Check if the track has finished playing (position at end of duration)
+          if (e.data.position === e.data.duration) {
+            console.log("Track finished, playing next track");
+            playNextTrack();
+          }
         });
       };
 
